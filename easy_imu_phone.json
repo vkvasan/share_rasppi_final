@@ -1,0 +1,31 @@
+{
+    "label_dictionary": {
+        "0": ["standing"],
+        "1": ["walking"],
+        "2": ["turning", "left"],
+        "3": ["sitting"],
+        "4": ["turning", "right"],
+        "5": ["waving", "right", "hand"],
+        "6": ["waving", "left", "hand"],
+        "7": ["jumping"],
+        "8": ["lying"],
+        "9": ["drinking", "water"],
+        "10": ["throwing"],
+        "11": ["kicking", "right", "foot"],
+        "12": ["kicking", "left", "foot"],
+        "13": ["golf", "swinging"],
+        "14": ["basketball", "shooting"],
+        "15": ["boxing"],
+        "16": ["torso", "twisting"],
+        "17": ["squatting"],
+        "18": ["forward", "bending", "in", "standing", "position"],
+        "19": ["forward", "bending", "in", "sitting", "position"],
+        "20": ["leg", "stretching"],
+        "21": ["pushing"],
+        "22": ["pulling"],
+        "23": ["right", "hand", "up"],
+        "24": ["left", "hand", "up"],
+        "25": ["drawing", "clockwise"],
+        "26": ["drawing", "counter", "clockwise"]
+    }
+}
