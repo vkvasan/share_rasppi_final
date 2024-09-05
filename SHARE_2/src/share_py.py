@@ -296,7 +296,7 @@ config = {
 device = torch.device('cpu')
 
 enc = Encoder(d_input=dim, d_model=128, d_output=128, seq_len=seq_len)
-dec = Decoder(embed_dim=1024, decoder_dim=128, vocab=word_list, encoder_dim=128, device=device)
+dec = Decoder(embed_dim=128, decoder_dim=128, vocab=word_list, encoder_dim=128, device=device)
 
 # Assuming 'config' is a dictionary containing 'run_tag'
 enc_load_path = os.path.join('model', f"{config['run_tag']}_enc.pth")
@@ -412,7 +412,7 @@ rec = recall_score(test_label.cpu().numpy(), pred_whole.cpu().numpy(), average='
 f1 = f1_score(test_label.cpu().numpy(), pred_whole.cpu().numpy(), average='macro', zero_division=0)
 
 print(f'Total Evaluation Time: {total_evaluation_time:.2f} seconds')
-    # Calculate evaluation time per batch and per sample
+# Calculate evaluation time per batch and per sample
 eval_time_per_batch = total_evaluation_time / (batch_idx + 1)
 eval_time_per_sample = total_evaluation_time / total_samples
 

@@ -487,31 +487,55 @@ class ImageBindModel(nn.Module):
         return outputs
 
 
+import torch
+import os
+from sklearn.decomposition import PCA
+
+import torch
+import os
+import torch.nn as nn
+
+import torch
+import os
+import torch.nn as nn
+
 def imagebind_huge(pretrained=False):
+    # Initialize the ImageBindModel with desired dimensions
     model = ImageBindModel(
         vision_embed_dim=1280,
         vision_num_blocks=32,
         vision_num_heads=16,
-        text_embed_dim=1024,
+        text_embed_dim=128,
         text_num_blocks=24,
         text_num_heads=16,
-        out_embed_dim=1024,
+        out_embed_dim=128,  # Setting the output dimension to 128
         audio_drop_path=0.1,
         imu_drop_path=0.7,
     )
 
     if pretrained:
-        if not os.path.exists(".checkpoints/imagebind_huge.pth"):
-            print(
-                "Downloading imagebind weights to .checkpoints/imagebind_huge.pth ..."
-            )
+        checkpoint_path = ".checkpoints/imagebind_huge.pth"
+        if not os.path.exists(checkpoint_path):
+            print("Downloading imagebind weights to .checkpoints/imagebind_huge.pth ...")
             os.makedirs(".checkpoints", exist_ok=True)
             torch.hub.download_url_to_file(
                 "https://dl.fbaipublicfiles.com/imagebind/imagebind_huge.pth",
-                ".checkpoints/imagebind_huge.pth",
+                checkpoint_path,
                 progress=True,
             )
 
-        model.load_state_dict(torch.load(".checkpoints/imagebind_huge.pth"))
+        # Load pretrained weights
+        state_dict = torch.load(checkpoint_path)
+        
+        # Manually filter compatible weights
+        new_state_dict = {}
+        for k, v in state_dict.items():
+            if k in model.state_dict() and model.state_dict()[k].shape == v.shape:
+                new_state_dict[k] = v
+            else:
+                print(f"Skipping incompatible weight: {k}")
+
+        model.load_state_dict(new_state_dict, strict=False)
 
     return model
+
